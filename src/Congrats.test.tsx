@@ -2,10 +2,13 @@ import React from "react";
 import { shallow } from 'enzyme';
 
 import { findByTestAttr } from '../test/testUtils';
-import Congrats from './Congrats';
+import Congrats, {CongratsProps} from './Congrats';
 
-const setup = (props={}) => {
-    return shallow(<Congrats {...props} />)
+const defaultProps = { success: false};
+
+const setup = (props?:CongratsProps) => {
+    const setupProps =  { ...defaultProps, ...props}
+    return shallow(<Congrats {...setupProps} />)
 }
 
 test('renders without error' ,() => {
