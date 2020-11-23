@@ -1,11 +1,11 @@
 import React from "react";
 
 
-interface ownProps {
+export interface CongratsProps {
     success: boolean;
 }
 
-const Congrats: React.FC<ownProps> = (props: ownProps): JSX.Element => {
+const Congrats: React.FC<CongratsProps> = (props: CongratsProps): JSX.Element => {
     if (props.success) {
         return (
         <div data-test="component-congrats">
