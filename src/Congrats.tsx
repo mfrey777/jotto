@@ -8,8 +8,8 @@ export interface CongratsProps {
 const Congrats: React.FC<CongratsProps> = (props: CongratsProps): JSX.Element => {
     if (props.success) {
         return (
-        <div data-test="component-congrats">
-            <span data-test="congrats-message">Congratulationw! You guessed the work!</span>
+        <div data-test="component-congrats" className="alert alert-success">
+            <span data-test="congrats-message">Congratulations! You guessed the work!</span>
         </div>
         );
     } else {
