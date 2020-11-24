@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from 'enzyme';
 
-import { findByTestAttr } from '../test/testUtils';
+import { findByTestAttr } from '../../test/testUtils';
 import Congrats, {CongratsProps} from './Congrats';
 
 const defaultProps = { success: false};

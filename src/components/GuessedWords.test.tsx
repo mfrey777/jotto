@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, ShallowWrapper } from 'enzyme';
 
-import { findByTestAttr } from '../test/testUtils';
+import { findByTestAttr } from '../../test/testUtils';
 import GuessedWords, {GuessedWordsProps} from './GuessedWords';
 
 const defaultProps: GuessedWordsProps = {

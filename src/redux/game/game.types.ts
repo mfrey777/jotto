@@ -3,7 +3,7 @@ interface GuessedWord {
   letterMatchCount: number;
 }
 
-export interface SuccessState {
+export interface GameState {
   secretWord: string;
   success: true;
   guessedWord: GuessedWord[];
@@ -13,7 +13,7 @@ export interface SuccessState {
 //   msg: string;
 // }
 
-export enum SuccessActionTypes {
+export enum GameActionTypes {
   CORRECT_GUESS = 'CORRECT_GUESS',
 }
 
@@ -23,8 +23,8 @@ export enum SuccessActionTypes {
 //   PROTECTED_API_FAILURE = 'PROTECTED_API_FAILURE',
 // }
 
-export interface correctGuessSuccessAction {
-  type: SuccessActionTypes.CORRECT_GUESS;
+export interface correctGuessGameAction {
+  type: GameActionTypes.CORRECT_GUESS;
 }
 
 // export interface protectedApiSuccessAction {
@@ -37,7 +37,7 @@ export interface correctGuessSuccessAction {
 //   payload: ExtendedMessage;
 // }
 
-export type SuccessAction =
-  | correctGuessSuccessAction
+export type GameAction =
+  | correctGuessGameAction
 //   | protectedApiSuccessAction
 //   | protectedApiFailureAction;
