@@ -1,10 +1,19 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { RootState } from '../redux/root.reducer';
+import { createStructuredSelector } from 'reselect';
 
-const mapStateToProps = (state: RootState ) => {
-    return {};
-}
+import { RootState } from '../redux/root.reducer';
+import { selectSuccess } from '../redux/game/game.selectors';
+
+
+// Redux Selectors
+interface PropsFromState {
+    success: boolean;
+  }
+
+const mapStateToProps = createStructuredSelector<RootState, PropsFromState>({
+    success: selectSuccess,
+  });
 
 // Merge Selector and Actions properties and add additioal properties (if required)
 export interface IProps
@@ -13,7 +22,9 @@ export interface IProps
 
 class Input extends React.Component<IProps> {
     render(): JSX.Element {
-        return <div></div>
+        return <div>
+          <button />
+        </div>
     }
 }
 

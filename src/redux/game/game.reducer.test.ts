@@ -9,5 +9,5 @@ import gameReducer from './game.reducer';
 
 test('returns state of true upon receving an action of type `CORRECT_GUESS', () => {
   const newState = gameReducer(undefined, { type: GameActionTypes.CORRECT_GUESS});
-  expect(newState).toEqual({success: true});
+  expect(newState.success).toBe(true);
 });

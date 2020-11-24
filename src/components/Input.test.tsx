@@ -1,8 +1,23 @@
 import React from "react";
-import { shallow, ShallowWrapper } from 'enzyme';
+import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
 
-import { findByTestAttr } from '../../test/testUtils';
+import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import Input from './Input';
+// import store from '../redux/store';
+
+
+
+const setup = () => {
+    const store = storeFactory();
+    // console.log('store: ');
+    // console.log(store.getState());
+    const wrapper = shallow(<Input store={store}/>).dive().dive();
+    return wrapper;
+    
+}
+
+setup();
 
 
 describe('render', () => {

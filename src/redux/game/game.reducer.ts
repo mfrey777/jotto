@@ -1,10 +1,12 @@
-import { GameActionTypes, GameAction } from './game.types'
+import { GameActionTypes, GameAction, GameState, GuessedWord } from './game.types'
 
 const INITIAL_STATE = {
   success: false,
+  secretWord: '',
+  guessedWord: new Array<GuessedWord>(),
   };
   
-function gameReducer (state = INITIAL_STATE, action: GameAction) {
+function gameReducer (state = INITIAL_STATE, action: GameAction): GameState  {
   switch(action.type) {
     case GameActionTypes.CORRECT_GUESS:
       return {
