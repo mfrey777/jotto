@@ -1,15 +1,14 @@
 import React from "react";
-import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import Input from './Input';
-// import store from '../redux/store';
+import { RootState } from '../redux/root.reducer';
 
 
 
-const setup = () => {
-    const store = storeFactory();
+const setup = (initialState?: RootState) => {
+    const store = storeFactory(initialState);
     // console.log('store: ');
     // console.log(store.getState());
     const wrapper = shallow(<Input store={store}/>).dive().dive();
@@ -22,6 +21,11 @@ setup();
 
 describe('render', () => {
     describe('word has not been guessed', () => {
+        let wrapper;
+        beforeEach(() => {
+            const initialState = { success: false };
+            wrapper = setup(initialState);
+        });
         test('renders component without error', () => {
 
         });

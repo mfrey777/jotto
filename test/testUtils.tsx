@@ -8,7 +8,7 @@ export const storeFactory = (initialState?: RootState) => {
     if(initialState) {
         store = createStore(rootReducer, initialState);
     } else {
-        store = createStore(rootReducer, initialState);
+        store = createStore(rootReducer);
     }
     return store;
 }

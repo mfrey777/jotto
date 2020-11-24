@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../redux/root.reducer';
+import { RootState } from '../root.reducer';
 
-const selectGame = (state: RootState) => state.game;
+const selectState = (state: RootState) => state.success;
 
 // export const selectProtectedMessage = () => createSelector([selectGeneral], general => general.protected_message);
 export const selectSuccess = createSelector(
-  [selectGame],
-  game => game.success
+  [selectState],
+  success => success
 );

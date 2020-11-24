@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { RootState } from '../redux/root.reducer';
-import { selectSuccess } from '../redux/game/game.selectors';
+import { selectSuccess } from '../redux/success/success.selectors';
 
 
 // Redux Selectors
