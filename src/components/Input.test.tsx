@@ -5,19 +5,14 @@ import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import Input from './Input';
 import { RootState } from '../redux/root.reducer';
 
-
-
 const setup = (initialState?: RootState) => {
     const store = storeFactory(initialState);
     // console.log('store: ');
     // console.log(store.getState());
-    const wrapper = shallow(<Input store={store}/>).dive().dive();
+    const wrapper = shallow(<Input store={store} />).dive().dive();
     return wrapper;
-    
+
 }
-
-setup();
-
 
 describe('render', () => {
     describe('word has not been guessed', () => {
