@@ -4,8 +4,8 @@ import {
   GuessedWord,
 } from './guessed-words.types';
 
-export function correctGuess(
-  newGuessedWord: GuessedWord
+export function guessWord(
+  newGuessedWord: string
 ): GuessedWordsAction {
   return {
     type: GuessedWordsActionTypes.GUESS_WORD,

@@ -9,7 +9,7 @@ export enum GuessedWordsActionTypes {
 
 export interface guessWordAction {
   type: GuessedWordsActionTypes.GUESS_WORD;
-  payload: GuessedWord;
+  payload: string;
 }
 
 export type GuessedWordsAction =
