@@ -1,5 +1,5 @@
 // General Redux
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
 // Redux Saga
 import createSagaMiddleware from 'redux-saga';
@@ -11,17 +11,14 @@ import logger from 'redux-logger';
 import { rootReducer } from './root.reducer';
 import rootSaga from './root.saga';
 
-// Enable Redux Dev Tools
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// Redux Dev Tools
+import { composeWithDevTools } from 'redux-devtools-extension';
+const composeEnhancers = composeWithDevTools({});
 
 // Redux Saga declaration
 const sagaMiddleware = createSagaMiddleware();
 export const middlewares = [sagaMiddleware, logger];
+export const middlewares_no_log = [sagaMiddleware];
 
 
 // Create Store

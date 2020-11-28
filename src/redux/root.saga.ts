@@ -1,6 +1,6 @@
 import { all, call, AllEffect, CallEffect } from 'redux-saga/effects';
 
-import { guessWordStartSaga } from './guessed-words/guessed-words.sagas'
+import { evaluateWordStart } from './guessed-words/guessed-words.sagas'
 
 export default function* rootSaga(): Generator<
   AllEffect<CallEffect<void>>,
@@ -8,7 +8,7 @@ export default function* rootSaga(): Generator<
   unknown
 > {
   yield all([
-    call(guessWordStartSaga),
+    call(evaluateWordStart),
   ]
   );
 }

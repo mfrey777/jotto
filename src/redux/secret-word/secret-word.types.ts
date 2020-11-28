@@ -1,10 +1,13 @@
-export enum SuccessActionTypes {
-  CORRECT_GUESS = 'CORRECT_GUESS',
+export enum SecretWordActionTypes {
+  SET_SECRET_WORD = 'SET_SECRET_WORD',
 }
 
-export interface correctGuessSuccessAction {
-  type: SuccessActionTypes.CORRECT_GUESS;
+export interface setSecretWordAction {
+  type: SecretWordActionTypes.SET_SECRET_WORD;
+  payload: string;
 }
 
-export type SuccessAction =
-  | correctGuessSuccessAction;
+export type SecretWordAction =
+  | setSecretWordAction;
+
+  

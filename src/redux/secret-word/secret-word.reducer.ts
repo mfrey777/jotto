@@ -1,7 +1,15 @@
-// import { SuccessActionTypes, SuccessAction } from './success.types'
+import {
+  SecretWordActionTypes,
+  SecretWordAction,
+} from './secret-word.types';
 
-function secretWordReducer(state = '', action: any): string {
-  return state
+function secretWordReducer(state = '', action: SecretWordAction): string {
+  switch (action.type) {
+    case SecretWordActionTypes.SET_SECRET_WORD:
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
 export default secretWordReducer;

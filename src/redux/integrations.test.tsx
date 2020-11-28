@@ -1,24 +1,28 @@
-import { findByTestAttr, storeFactory } from '../../test/testUtils';
-import { guessWord } from './guessed-words/guessed-words.actions';
+import { storeFactory } from '../../test/testUtils';
+import { evaluateWord } from './guessed-words/guessed-words.actions';
+import { setSecretWord } from './secret-word/secret-word.actions';
 import { RootState } from './root.reducer';
+import { Store } from 'redux';
 
 describe('guessWord action dispatcher', () => {
   const secretWord = 'party';
   const unsuccessfulGuess = 'train';
   describe('no guessed words', () => {
-    let store;
+    let store: Store<RootState>;
     const initialState = { secretWord };
     beforeEach(() => {
       store = storeFactory();
+      store.dispatch(setSecretWord(secretWord));
     });
+    
     test('updates state correctly for unsuccessful guess', () => {
-      store.dispatch(guessWord(unsuccessfulGuess));
+      store.dispatch(evaluateWord(unsuccessfulGuess));
       const newState = store.getState();
       const expectState = {
         ...initialState,
-        sucesss: false,
+        success: false,
         guessedWords: [
-          { guessWord: unsuccessfulGuess, letterMatchCount: 3 }
+          { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
         ]
       }
       expect(newState).toEqual(expectState);
@@ -26,13 +30,13 @@ describe('guessWord action dispatcher', () => {
     });
 
     test('updates state correctly for successful guess', () => {
-      store.dispatch(guessWord(secretWord));
+      store.dispatch(evaluateWord(secretWord));
       const newState = store.getState();
       const expectState = {
         ...initialState,
-        sucesss: true,
+        success: true,
         guessedWords: [
-          { guessWord: secretWord, letterMatchCount: 5 }
+          { guessedWord: secretWord, letterMatchCount: 5 }
         ]
       }
       expect(newState).toEqual(expectState);
@@ -40,26 +44,65 @@ describe('guessWord action dispatcher', () => {
     });
   });
   describe('some guessed words', () => {
-    test('updates state correctly for unsuccessful guess', () => {
-      const guessedWords = [
-        { guessWord: 'agile', letterMatchCount: 1 }
-      ]
-      const initialState = { guessedWords, secretWord }
-      let store;
-      beforeEach(() => {
-        store = storeFactory(initialState);
-      });
-]
+    const guessedWords = [
+      { guessedWord: 'agile', letterMatchCount: 1 }
+    ]
+    const initialState = { success: false, guessedWords, secretWord }
+    let store: Store<RootState>;
+    beforeEach(() => {
+      store = storeFactory(initialState);
     });
 
-    test('updates state correctly for successful guess', () => {
-      store.dispatch(guessWord(unsuccessfulGuess));
+    test('updates state correctly for unsuccessful guess', () => {
+
+      // var unsubscribe = store.subscribe(function() {
+      //   console.log('unsubscribe called, store is : ');
+      //   console.log(store.getState());
+      //   const newState = store.getState();
+      //   const expectState = {
+      //     ...initialState,
+      //     success: false,
+      //     guessedWords: [ ...guessedWords,
+      //       { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
+      //     ]
+      //   }
+      //   expect(newState).toEqual(expectState);
+      //   // done();
+      // });
+      
+
+      store.dispatch(evaluateWord(unsuccessfulGuess));
+      console.log('unsubscribe called, store is : ');
+      console.log(store.getState());
       const newState = store.getState();
       const expectState = {
         ...initialState,
-        sucesss: false,
-        guessedWords: [
-          { guessWord: unsuccessfulGuess, letterMatchCount: 3 }
+        success: false,
+        guessedWords: [ ...guessedWords,
+          { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
+        ]
+      }
+      expect(newState).toEqual(expectState);
+      
+      // const newState = store.getState();
+      // const expectState = {
+      //   ...initialState,
+      //   success: false,
+      //   guessedWords: [ ...guessedWords,
+      //     { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
+      //   ]
+      // }
+      // expect(newState).toEqual(expectState);
+    });
+
+    test('updates state correctly for successful guess', () => {
+      store.dispatch(evaluateWord(secretWord));
+      const newState = store.getState();
+      const expectState = {
+        ...initialState,
+        success: true,
+        guessedWords: [ ...guessedWords,
+          { guessedWord: secretWord, letterMatchCount: 5 }
         ]
       }
       expect(newState).toEqual(expectState);
