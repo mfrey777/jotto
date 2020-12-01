@@ -1,5 +1,6 @@
 export enum SecretWordActionTypes {
   SET_SECRET_WORD = 'SET_SECRET_WORD',
+  GET_SECRET_WORD = 'GET_SECRET_WORD',
 }
 
 export interface setSecretWordAction {
@@ -7,7 +8,12 @@ export interface setSecretWordAction {
   payload: string;
 }
 
+export interface getSecretWordAction {
+  type: SecretWordActionTypes.GET_SECRET_WORD;
+}
+
 export type SecretWordAction =
-  | setSecretWordAction;
+  | setSecretWordAction
+  | getSecretWordAction;
 
   

@@ -21,8 +21,6 @@ import {
   evaluateWordAction
   // GuessedWordsAction,
 } from './guessed-words.types';
-import { strict } from 'assert';
-
 
 // import { api } from '../../utils/api';
 
@@ -38,8 +36,14 @@ export function* evaluateWord(action: evaluateWordAction): Generator<
     const secretWord = yield* select(selectSecretWord);
     const letterMatchCount = getLetterMatchCount(guessedWord, secretWord);
     console.log('action guessWord called with params; ' + guessedWord + '/' + letterMatchCount);
+    // Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 500);
+    // let date = new Date();
+    // let curDate:Date;
+    // do { curDate = new Date(); }
+    // while(Number(curDate)-Number(date) < 500);
     yield* put(guessWord({ guessedWord, letterMatchCount }));
     if(guessedWord === secretWord) {
+      console.log('action corretGuess called');
       yield* put(correctGuess());
     }
  

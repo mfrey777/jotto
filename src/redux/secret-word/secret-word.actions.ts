@@ -11,3 +11,10 @@ export function setSecretWord(
     payload: newSecretWord,
   };
 }
+
+export function getSecretWord(
+): SecretWordAction {
+  return {
+    type: SecretWordActionTypes.GET_SECRET_WORD,
+  };
+}
