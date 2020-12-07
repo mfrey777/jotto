@@ -5,7 +5,7 @@ import {
   SimpleEffect,
   SelectEffectDescriptor
 } from 'redux-saga/effects';
-import { put, select, takeLatest } from 'typed-redux-saga';
+import { put, select, call, takeLatest } from 'typed-redux-saga';
 import {
   guessWord
 } from './guessed-words.actions';
@@ -30,12 +30,15 @@ export function* evaluateWord(action: evaluateWordAction): Generator<
   unknown
 > {
   try {
-    console.log('guessWord() saga started');
+    console.log('guessWord() - saga started');
     // console.log('payload is: ' + action.payload);
     const guessedWord = action.payload
     const secretWord = yield* select(selectSecretWord);
     const letterMatchCount = getLetterMatchCount(guessedWord, secretWord);
-    console.log('action guessWord called with params; ' + guessedWord + '/' + letterMatchCount);
+    console.log('guessWord() - action guessWord called with params; ' + guessedWord + '/' + letterMatchCount);
+    // const response:any = yield* call(api.get, '/api/word');
+    // console.log('guessWord() - axios query returned: ');
+    // console.log(response);
     // Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 500);
     // let date = new Date();
     // let curDate:Date;
@@ -43,15 +46,15 @@ export function* evaluateWord(action: evaluateWordAction): Generator<
     // while(Number(curDate)-Number(date) < 500);
     yield* put(guessWord({ guessedWord, letterMatchCount }));
     if(guessedWord === secretWord) {
-      console.log('action corretGuess called');
+      console.log('guessWord() - action corretGuess called');
       yield* put(correctGuess());
     }
  
     
   } catch (err) {
-    console.log('error occured');
+    console.log('guessWord() - error occured');
   }
-  yield console.log('guessWord() saga finsshed');
+  yield console.log('guessWord() - saga finsshed');
 }
 
 export function* evaluateWordStart(): Generator<

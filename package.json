@@ -13,6 +13,7 @@
     "@types/react-redux": "^7.1.11",
     "@types/redux-logger": "^3.0.8",
     "axios": "^0.21.0",
+    "axios-debug-log": "^0.8.2",
     "moxios": "^0.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
