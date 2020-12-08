@@ -1,9 +1,12 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { bindActionCreators, Dispatch } from 'redux';
 
 import { RootState } from '../redux/root.reducer';
 import { selectSuccess } from '../redux/success/success.selectors';
+
+import { guessWord } from '../redux/guessed-words/guessed-words.actions'
 
 
 // Redux Selectors
@@ -14,6 +17,11 @@ interface PropsFromState {
 const mapStateToProps = createStructuredSelector<RootState, PropsFromState>({
     success: selectSuccess,
   });
+
+// Redux Actions
+function mapDispatchToProps(dispatch: Dispatch) {
+  return bindActionCreators({ guessWord }, dispatch);
+}
 
 // Merge Selector and Actions properties and add additioal properties (if required)
 export interface IProps
@@ -37,4 +45,4 @@ class Input extends React.Component<IProps> {
     }
 }
 
-export default connect(mapStateToProps)(Input);
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
