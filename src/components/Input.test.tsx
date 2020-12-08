@@ -3,9 +3,9 @@ import { shallow, ShallowWrapper } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import Input from './Input';
-import { RootState } from '../redux/root.reducer';
+// import { RootState } from '../redux/root.reducer';
 
-const setup = (initialState?: RootState) => {
+const setup = (initialState?: any) => {
     const store = storeFactory(initialState);
     // console.log('store: ');
     // console.log(store.getState());

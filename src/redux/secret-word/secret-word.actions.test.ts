@@ -28,6 +28,7 @@ describe('getSecretWord action creator', () => {
         response: {word: secretWord},
       });
     });
+  
 
     store.dispatch(getSecretWord());
 
