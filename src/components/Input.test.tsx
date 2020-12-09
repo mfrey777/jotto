@@ -70,12 +70,10 @@ describe('redux props', () => {
         expect(successProp).toBe(success);
     });
 
-    test('guesWord acion creation is a function prop', () => {
+    test('guessWord acion creation is a function prop', () => {
         const wrapper = setup();
         const guessWordProp = wrapper.instance().props.guessWord;
         expect(guessWordProp).toBeInstanceOf(Function);
-
-
     });
 });
 
