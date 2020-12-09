@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import './App.css';
 import GuessedWords from './components/GuessedWords';
 import Congrats from './components/Congrats';
 import Input from './components/Input';
-import Test from './components/test.component';
+// import Test from './components/test.component';
 import { RootState } from './redux/root.reducer';
 import {  getSecretWord } from './redux/secret-word/secret-word.actions';
 
@@ -42,7 +42,6 @@ export class UnconnectedApp extends React.Component<IProps> {
         <Congrats success={this.props.success}></Congrats>
         <Input></Input>
         <GuessedWords guessedWords={this.props.guessedWords}></GuessedWords>
-        <Test></Test>
       </div>
     );
   }
