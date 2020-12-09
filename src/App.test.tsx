@@ -62,5 +62,3 @@ test('getSecretWord runs on App mount', () => {
   expect(getSecretWordCallCount).toBe(1);
 
 });
-
-

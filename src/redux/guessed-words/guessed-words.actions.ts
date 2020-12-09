@@ -5,19 +5,20 @@ import {
 } from './guessed-words.types';
 
 export function guessWord(
-  newGuessedWord: GuessedWord
+  newEvaluatedWord: string
 ): GuessedWordsAction {
   return {
     type: GuessedWordsActionTypes.GUESS_WORD,
+    payload: newEvaluatedWord,
+  };
+}
+
+export function guessWordResult(
+  newGuessedWord: GuessedWord
+): GuessedWordsAction {
+  return {
+    type: GuessedWordsActionTypes.GUESS_WORD_RESULT,
     payload: newGuessedWord,
   };
 }
 
-export function evaluateWord(
-  newEvaluatedWord: string
-): GuessedWordsAction {
-  return {
-    type: GuessedWordsActionTypes.EVALUATE_WORD,
-    payload: newEvaluatedWord,
-  };
-}

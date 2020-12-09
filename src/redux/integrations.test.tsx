@@ -1,5 +1,5 @@
 import { storeFactory } from '../../test/testUtils';
-import { evaluateWord } from './guessed-words/guessed-words.actions';
+import { guessWord } from './guessed-words/guessed-words.actions';
 import { setSecretWord } from './secret-word/secret-word.actions';
 import { RootState } from './root.reducer';
 import { Store } from 'redux';
@@ -16,7 +16,7 @@ describe('guessWord action dispatcher', () => {
     });
     
     test('updates state correctly for unnsuccessful guess', () => {
-      store.dispatch(evaluateWord(unsuccessfulGuess));
+      store.dispatch(guessWord(unsuccessfulGuess));
       console.log('retrieving new state');
       const newState = store.getState();
       const expectState = {

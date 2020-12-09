@@ -2,7 +2,7 @@ import { GuessedWordsActionTypes, GuessedWordsAction, GuessedWord } from './gues
 
 function guessedWordsReducer(state = new Array<GuessedWord>(), action: GuessedWordsAction): GuessedWord[] {
   switch (action.type) {
-    case GuessedWordsActionTypes.GUESS_WORD:
+    case GuessedWordsActionTypes.GUESS_WORD_RESULT:
       return [...state, action.payload];
     default:
       return state;

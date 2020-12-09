@@ -30,13 +30,13 @@ export interface IProps
     // additonal props if any
 }
 
-class Input extends React.Component<IProps> {
+export class UnconnectedInput extends React.Component<IProps> {
     render(): JSX.Element {
       const contents = 
       this.props.success ? null : (
         <form className="form.inline">
           <input data-test="input-box" className="mb-2 mx-sm-3" type="text" placeholder="enter guess"></input>
-          <button data-test="submit-button" type="submit" className="btn btn-primaary mb-2">Submit</button>
+          <button data-test="submit-button" type="submit" className="btn btn-primaary mb-2" onClick={this.props.guessWord('train')}>Submit</button>
         </form>
       );
       return(
@@ -47,4 +47,4 @@ class Input extends React.Component<IProps> {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedInput);

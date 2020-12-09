@@ -5,19 +5,19 @@ export interface GuessedWord {
 
 export enum GuessedWordsActionTypes {
   GUESS_WORD = 'GUESS_WORD',
-  EVALUATE_WORD = 'EVALUATE_WORD'
-}
-
-export interface evaluateWordAction {
-  type: GuessedWordsActionTypes.EVALUATE_WORD;
-  payload: string;
+  GUESS_WORD_RESULT = 'GUESS_WORD_RESULT'
 }
 
 export interface guessWordAction {
   type: GuessedWordsActionTypes.GUESS_WORD;
+  payload: string;
+}
+
+export interface guessWordResultAction {
+  type: GuessedWordsActionTypes.GUESS_WORD_RESULT;
   payload: GuessedWord;
 }
 
 export type GuessedWordsAction =
   | guessWordAction
-  | evaluateWordAction;
+  | guessWordResultAction;

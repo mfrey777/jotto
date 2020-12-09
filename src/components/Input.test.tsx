@@ -2,7 +2,7 @@ import React from "react";
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
-import Input from './Input';
+import Input, { UnconnectedInput } from './Input';
 // import { RootState } from '../redux/root.reducer';
 
 const setup = (initialState?: any) => {
@@ -77,3 +77,24 @@ describe('redux props', () => {
     });
 });
 
+describe('guessWord action creator call', () => {
+    test('guessWord runs on Submit click', () => {
+        const guessWordMock = jest.fn();
+        const props = { 
+        guessWord: guessWordMock,
+        success: false,
+        }
+        
+        // set up app component with getSecretWordMock as the getSecretWord prop
+        const wrapper: ShallowWrapper = shallow(<UnconnectedInput {...props}></UnconnectedInput>);
+
+        const submitButton = findByTestAttr(wrapper, "submit-button");
+        
+        submitButton.simulate('click')
+    
+        // check to see if mock ran
+        const guessWordCallCount = guessWordMock.mock.calls.length;
+        expect(guessWordCallCount).toBe(1);
+    
+    });
+});
