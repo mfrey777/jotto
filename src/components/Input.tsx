@@ -32,7 +32,6 @@ export interface IProps
   extends ReturnType<typeof mapStateToProps>,
   ReturnType<typeof mapDispatchToProps>{
     // additonal props if any
-    state: localState;
 }
 
 export class UnconnectedInput extends React.Component<IProps, IState> {
