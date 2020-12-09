@@ -9,6 +9,10 @@ import { selectSuccess } from '../redux/success/success.selectors';
 import { guessWord } from '../redux/guessed-words/guessed-words.actions'
 
 
+interface IState {
+  currentGuess: string;
+}
+
 // Redux State
 interface PropsFromState {
     success: boolean;
@@ -28,15 +32,30 @@ export interface IProps
   extends ReturnType<typeof mapStateToProps>,
   ReturnType<typeof mapDispatchToProps>{
     // additonal props if any
+    state: localState;
 }
 
-export class UnconnectedInput extends React.Component<IProps> {
+export class UnconnectedInput extends React.Component<IProps, IState> {
+  constructor(props: IProps)  {
+    super(props);
+    // initalize the state
+    this.state = { currentGuess: '' }
+  }
+
+  submitGuessedWord = (evt:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    evt.preventDefault();
+    const guessedWord = this.state.currentGuess;
+    if(guessWord && guessWord.length > 0){
+      this.props.guessWord(guessedWord);
+    }
+  }
+
     render(): JSX.Element {
       const contents = 
       this.props.success ? null : (
         <form className="form.inline">
-          <input data-test="input-box" className="mb-2 mx-sm-3" type="text" placeholder="enter guess"></input>
-          <button data-test="submit-button" type="submit" className="btn btn-primaary mb-2" onClick={this.props.guessWord('train')}>Submit</button>
+          <input data-test="input-box" className="mb-2 mx-sm-3" type="text" placeholder="enter guess" value={this.state.currentGuess} onChange={(evt) => this.setState({currentGuess: evt.target.value}) }></input>
+          <button data-test="submit-button" type="submit" className="btn btn-primaary mb-2" onClick={this.submitGuessedWord}>Submit</button>
         </form>
       );
       return(
