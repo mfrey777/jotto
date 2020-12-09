@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import './App.css';
 import GuessedWords from './components/GuessedWords';
 import Congrats from './components/Congrats';
@@ -9,20 +10,31 @@ import { RootState } from './redux/root.reducer';
 import {  getSecretWord } from './redux/secret-word/secret-word.actions';
 
 
-
+// Redux State
 const mapStateToProps = (state: RootState) => {
   const { success, guessedWords, secretWord} = state;
   return { success, guessedWords, secretWord};
 }
 
-
-// Create interface for props
-export interface IProps
-  extends ReturnType<typeof mapStateToProps>{
+// Redux Actions
+function mapDispatchToProps(dispatch: Dispatch) {
+  return bindActionCreators({ getSecretWord }, dispatch);
 }
 
 
-class App extends React.Component<IProps> {
+// Create interface for props
+export interface IProps
+  extends ReturnType<typeof mapStateToProps>,
+  ReturnType<typeof mapDispatchToProps>{
+    // additonal props if any
+}
+
+
+export class UnconnectedApp extends React.Component<IProps> {
+  componentDidMount(): void {
+    this.props.getSecretWord();
+  }
+
   render ()  {
     return (
       <div className="container">
@@ -38,4 +50,4 @@ class App extends React.Component<IProps> {
 }
 
 
-export default connect(mapStateToProps, { getSecretWord })(App);
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedApp);

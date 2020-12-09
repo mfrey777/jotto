@@ -9,7 +9,7 @@ import { selectSuccess } from '../redux/success/success.selectors';
 import { guessWord } from '../redux/guessed-words/guessed-words.actions'
 
 
-// Redux Selectors
+// Redux State
 interface PropsFromState {
     success: boolean;
   }
@@ -23,9 +23,11 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators({ guessWord }, dispatch);
 }
 
-// Merge Selector and Actions properties and add additioal properties (if required)
+// Create interface for props
 export interface IProps
-  extends ReturnType<typeof mapStateToProps>{
+  extends ReturnType<typeof mapStateToProps>,
+  ReturnType<typeof mapDispatchToProps>{
+    // additonal props if any
 }
 
 class Input extends React.Component<IProps> {
