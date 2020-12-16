@@ -2,11 +2,11 @@
 import { Store } from 'redux';
 import moxios from 'moxios';
 
-import { RootState } from '../root.reducer';
-import { storeFactory } from '../../../test/testUtils';
-import { getSecretWord } from './secret-word.actions';
+import { RootState } from './root.reducer';
+import { storeFactory } from '../../test/testUtils';
+import { getSecretWord } from './secretWordSlice';
 
-import { api } from '../../utils/api';
+import { api } from '../utils/api';
 
 describe('getSecretWord action creator', () => {
   let store: Store<RootState>;
@@ -35,6 +35,6 @@ describe('getSecretWord action creator', () => {
     await new Promise(res => setTimeout(res, 100));
     const newState = store.getState();
     // console.log("state: " + newState.secretWord);
-    expect(newState.secretWord).toBe(secretWord);
+    expect(newState.secretWord.word).toBe(secretWord);
   });
 });

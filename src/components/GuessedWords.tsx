@@ -1,9 +1,6 @@
 import React from "react";
 
-export interface GuessedWord {
-    guessedWord: string;
-    letterMatchCount: number;
-}
+import { GuessedWord } from '../redux/GuessedWordsSlice';
 
 export interface GuessedWordsProps {
     guessedWords: GuessedWord[];

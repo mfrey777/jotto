@@ -1,18 +1,17 @@
-import { ShallowWrapper } from 'enzyme';
+import { ReactWrapper, ShallowWrapper } from 'enzyme';
 import { createStore, applyMiddleware } from 'redux';
 
 import { rootReducer, RootState } from '../src/redux/root.reducer';
-import rootSaga from '../src/redux/root.saga';
-import createSagaMiddleware from 'redux-saga';
+
+// Redux Thunk
+import ReduxThunk from 'redux-thunk';
 
 function hasKey<O>(obj: O, key: keyof any): key is keyof O {
     return key in obj
 }
 
-export const storeFactory = (partialInitialState: any) => {
-    const sagaMiddleware = createSagaMiddleware();
-
-    const middlewares_no_log = [sagaMiddleware];
+export const storeFactory = (partialInitialState?: any) => {
+    const middlewares_no_log = [ReduxThunk];
 
     let store;
     store = createStore(rootReducer, undefined, applyMiddleware(...middlewares_no_log));
@@ -27,12 +26,14 @@ export const storeFactory = (partialInitialState: any) => {
         store = createStore(rootReducer, currentState, applyMiddleware(...middlewares_no_log));
     }
 
-    // Run Redux Sagas
-    sagaMiddleware.run(rootSaga);
     return store;
+
 }
 
-export const findByTestAttr = (wrapper: ShallowWrapper, val: string): ShallowWrapper => {
+// export const findByTestAttr = (wrapper: ShallowWrapper, val: string): ShallowWrapper => {
+//     return wrapper.find(`[data-test="${val}"]`);
+// }
+
+export const findByTestAttr = (wrapper: ReactWrapper | ShallowWrapper, val: string): ReactWrapper | ShallowWrapper=> {
     return wrapper.find(`[data-test="${val}"]`);
 }
-

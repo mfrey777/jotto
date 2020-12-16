@@ -1,86 +1,85 @@
 import { storeFactory } from '../../test/testUtils';
-import { guessWord } from './guessed-words/guessed-words.actions';
-import { setSecretWord } from './secret-word/secret-word.actions';
+import { evaluateGuessedWord } from './GuessedWordsSlice';
+import { secretWordSuccess } from './secretWordSlice';
 import { RootState } from './root.reducer';
 import { Store } from 'redux';
 
-describe('guessWord action dispatcher', () => {
+describe('evaluateGuessedWord action dispatcher', () => {
   const secretWord = 'party';
   const unsuccessfulGuess = 'train';
   describe('no guessed words', () => {
     let store: Store<RootState>;
-    const initialState = { secretWord };
+    const initialState = { secretWord: { loading: false, error: null, word:'party'} };
     beforeEach(() => {
       store = storeFactory();
-      store.dispatch(setSecretWord(secretWord));
+      store.dispatch(secretWordSuccess(secretWord));
     });
     
     test('updates state correctly for unnsuccessful guess', () => {
-      store.dispatch(guessWord(unsuccessfulGuess));
-      console.log('retrieving new state');
+      store.dispatch(evaluateGuessedWord(unsuccessfulGuess));
+      // console.log('retrieving new state');
       const newState = store.getState();
       const expectState = {
         ...initialState,
-        success: false,
-        guessedWords: [
-          { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
-        ]
+        success: { status: false},
+        guessedWords: {
+          words:[
+            { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
+          ]
+        }
       }
       expect(newState).toEqual(expectState);
 
     });
 
-    // test('updates state correctly for successful guess', () => {
-    //   store.dispatch(evaluateWord(secretWord));
-    //   const newState = store.getState();
-    //   const expectState = {
-    //     ...initialState,
-    //     success: true,
-    //     guessedWords: [
-    //       { guessedWord: secretWord, letterMatchCount: 5 }
-    //     ]
-    //   }
-    //   expect(newState).toEqual(expectState);
+    test('updates state correctly for successful guess', () => {
+      store.dispatch(evaluateGuessedWord(secretWord));
+      const newState = store.getState();
+      const expectState = {
+        ...initialState,
+        success: { status: true},
+        guessedWords: {
+          words: [
+            { guessedWord: secretWord, letterMatchCount: 5 }
+          ]
+        }
+      }
+      expect(newState).toEqual(expectState);
 
-    // });
+    });
   });
-  // describe('some guessed words', () => {
-  //   const guessedWords = [
-  //     { guessedWord: 'agile', letterMatchCount: 1 }
-  //   ]
-  //   const initialState = { success: false, guessedWords, secretWord }
-  //   let store: Store<RootState>;
-  //   beforeEach(() => {
-  //     store = storeFactory(initialState);
-  //   });
+  describe('some guessed words', () => {
+    const initialStateGuessedWords = {words: [
+      { guessedWord: 'agile', letterMatchCount: 1 }
+    ]}
+    const initialStateSuccess = { status: false};
+    const initialState = { success: initialStateSuccess, guessedWords: initialStateGuessedWords, secretWord: { loading: false, errorMessage: '', word:'party'} }
+    let store: Store<RootState>;
+    beforeEach(() => {
+      store = storeFactory(initialState);
+    });
 
-  //   test('updates state correctly for unsuccessful guess', () => {
-  //     store.dispatch(evaluateWord(unsuccessfulGuess));
-  //     console.log('unsubscribe called, store is : ');
-  //     console.log(store.getState());
-  //     const newState = store.getState();
-  //     const expectState = {
-  //       ...initialState,
-  //       success: false,
-  //       guessedWords: [ ...guessedWords,
-  //         { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
-  //       ]
-  //     }
-  //     expect(newState).toEqual(expectState);
+    test('updates state correctly for unsuccessful guess', () => {
+      store.dispatch(evaluateGuessedWord(unsuccessfulGuess));
+      const newState = store.getState();
+      const expectState = {
+        ...initialState,
+        success: { status: false},
+        guessedWords: { words: [...initialState.guessedWords.words, { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }]}
+      }
+      expect(newState).toEqual(expectState);
     
-  //   });
+    });
 
-  //   test('updates state correctly for successful guess', () => {
-  //     store.dispatch(evaluateWord(secretWord));
-  //     const newState = store.getState();
-  //     const expectState = {
-  //       ...initialState,
-  //       success: true,
-  //       guessedWords: [ ...guessedWords,
-  //         { guessedWord: secretWord, letterMatchCount: 5 }
-  //       ]
-  //     }
-  //     expect(newState).toEqual(expectState);
-  //   });
-  // });
+    test('updates state correctly for successful guess', () => {
+      store.dispatch(evaluateGuessedWord(secretWord));
+      const newState = store.getState();
+      const expectState = {
+        ...initialState,
+        success: { status: true},
+        guessedWords: { words: [...initialState.guessedWords.words, { guessedWord: secretWord, letterMatchCount: 5 }]}
+      }
+      expect(newState).toEqual(expectState);
+    });
+  });
 });
